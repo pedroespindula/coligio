@@ -1,0 +1,6 @@
+[submodule "coligio-front"]
+	path = coligio-front
+	url = git@github.com:pedroespindula/coligio-front
+[submodule "coligio-back"]
+	path = coligio-back
+	url = git@github.com:pedroespindula/coligio-back
