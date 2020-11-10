@@ -1,0 +1,32 @@
+version: "3"
+services:
+  back:
+    build: ./coligio-back
+    restart: unless-stopped
+    depends_on:
+      - db
+    volumes:
+      - ./coligio-back:/app
+    ports:
+        - 3000:80
+    environment:
+      PORT: 80
+      DB_DIALECT: mysql
+      DB_PORT: 3306
+      DB_HOST: db
+      DB_NAME: $DB_NOME
+      DB_USERNAME: $DB_USUARIO
+      DB_PASSWORD: $DB_USUARIO_SENHA
+
+  db:
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: $DB_ROOT_SENHA
+      MYSQL_USER: $DB_USUARIO
+      MYSQL_PASSWORD: $DB_USUARIO_SENHA
+      MYSQL_DATABASE: $DB_NOME
+    volumes:
+      - ./volumes/database:/var/lib/mysql
+
+
