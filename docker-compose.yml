@@ -7,8 +7,7 @@ services:
       - db
     volumes:
       - ./coligio-back:/app
-    ports:
-        - 3000:80
+      - /app/node_modules
     environment:
       PORT: 80
       DB_DIALECT: mysql
@@ -29,4 +28,29 @@ services:
     volumes:
       - ./volumes/database:/var/lib/mysql
 
+  front:
+    build: ./coligio-front
+    restart: unless-stopped
+    volumes:
+      - ./coligio-front:/app
+      - /app/node_modules
+    environment:
+      REACT_APP_API_URL: "//api.${BASE_URL}"
+      PORT: 80
+      CI: "true"
+
+  nginx:
+    image: nginx:1.13.3
+    restart: unless-stopped
+    depends_on:
+      - back
+      - front
+    ports:
+      - ${APP_PORT}:80
+    environment:
+      BASE_URL: $BASE_URL
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf.template
+      - ./config/nginx/run.sh:/run.sh
+    command: /bin/bash -c "/run.sh"
 
