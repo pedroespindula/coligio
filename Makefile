@@ -10,11 +10,11 @@ back-migrate:
 back-migrate-generate:
 	docker-compose run back npm run migrate:generate
 
-back-migrate-generate-undo:
-	docker-compose run back npm run migrate:generate:undo
+back-migrate-undo:
+	docker-compose run back npm run migrate:undo
 
-back-migrate-generate-undo-all:
-	docker-compose run back npm run migrate:generate:undo:all
+back-migrate-undo-all:
+	docker-compose run back npm run migrate:undo:all
 
 back-seed:
 	docker-compose run back npm run seed
