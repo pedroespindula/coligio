@@ -6,7 +6,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./coligio-back:/app
+      - ./coligio-back:/app:cached
       - /app/node_modules
     environment:
       PORT: 80
@@ -32,7 +32,7 @@ services:
     build: ./coligio-front
     restart: unless-stopped
     volumes:
-      - ./coligio-front:/app
+      - ./coligio-front:/app:cached
       - /app/node_modules
     environment:
       REACT_APP_API_URL: "//api.${BASE_URL}"
